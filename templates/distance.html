@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+    <h1>请输入两点坐标</h1>
+    <p>
+        初始位置经度：<input id="longitude1">
+        初始位置纬度：<input id="latitude1">
+    </p>
+     <p>
+        最终位置经度：<input id="longitude2">
+        最终位置纬度：<input id="latitude2">
+    </p>
+    <button type="button" onclick="SetFirstPosion()">计算距离</button>
+    <p id="distance" >
+        两点距离：
+    </p>
+
+ <script>
+
+    function SetFirstPosion(){
+        var posion1;
+        posion1=document.getElementById("latitude1").value;
+        var posion2=document.getElementById("latitude2").value;
+        var posion3=document.getElementById("longitude1").value;
+        var posion4=document.getElementById("longitude2").value;
+        console.log("posion1",posion1);
+        var radLat1=posion1*(Math.PI/180);
+        var radLat2=posion2*(Math.PI/180);
+        var radLong1=posion3*(Math.PI/180);
+        var radLong2=posion4*(Math.PI/180);
+        var a = radLat1 - radLat2;
+        var b = radLong1 - radLong2;
+        console.log("radLat1",radLat1);
+        console.log("radLat2",radLat2);
+        console.log("radLong1", radLong1);
+        console.log("radLong2", radLong2);
+        console.log("a",a);
+        console.log("b",b);
+        var  s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) +
+            Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));
+        console.log("s",s);
+        s = s *  6378137;
+        s=Math.round(s*10000)/10000;
+
+        document.getElementById("distance").innerHTML = "两点距离："+s+"米";
+    }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+{#    <meta http-equiv="refresh" content="10;url='/'">#}
+    <meta charset="utf-8">
+    <title>老人位置</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <style>
+    body,
+    html,
+    #container {
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        font-family: "微软雅黑";
+    }
+    </style>
+    <script src="//api.map.baidu.com/api?type=webgl&v=1.0&ak=U2W7f0h5u4CtOdqKqSIGkp3dpV0TMSqe"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js" integrity="sha512-aMGMvNYu8Ue4G+fHa359jcPb1u+ytAF+P2SCb+PxrjCdO3n3ZTxJ30zuH39rimUggmTwmh2u7wvQsDTHESnmfQ==" crossorigin="anonymous"></script>
+    <script>
+        var x1;
+        var y1;
+        var x2;
+        var y2;
+        var curData1;
+        var curData2;
+         $(document).ready(function() {
+            // Connect to the Socket.IO server.
+            // The connection URL has the following format, relative to the current page:
+            //     http[s]://<domain>:<port>[/<namespace>]
+            var socket = io();
+
+            // Event handler for server sent data.
+            // The callback function is invoked whenever the server emits data
+            // to the client. The data is then displayed in the "Received"
+            // section of the page.
+            socket.on('my_response', function(msg, cb) {
+                $('#log').text('Received count' + msg.count ).html();
+                $('#demo').text('当前位置经度' + msg.data1 +'当前维度：'+msg.data2).html();
+                curData1=msg.data1;
+                curData2=msg.data2;
+
+                if (cb)
+                    cb();
+            });
+
+        });
+        function SetFirstPosion(){
+            x1= curData1;
+            y1= curData2;
+            document.getElementById("FirstPosion").innerHTML="第一个点经度"+x1+"第二个点"+y1;
+        }
+        function SetSecondPosion(){
+            x2= curData1;
+            y2= curData2;
+            document.getElementById("SecondPosion").innerHTML="第二个点经度"+x2+"第二个点"+y2;
+        }
+
+        function GetDistance(){
+
+        var radLat1=y1*(Math.PI/180);
+        var radLat2=y2*(Math.PI/180);
+        var radLong1=x1*(Math.PI/180);
+        var radLong2=x2*(Math.PI/180);
+        var a = radLat1 - radLat2;
+        var b = radLong1 - radLong2;
+        var  s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) +
+            Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));
+        {#console.log("s",s);#}
+        s = s *  6378137;
+        s=Math.round(s*10000)/10000;
+
+        document.getElementById("distance").innerHTML = "两点距离："+s+"米";
+    }
+    </script>
+
+</head>
+<body >
+
+    <div id="log"></div>
+    <div>
+        <p>有效数据</p>
+        <p id="demo">
+        </p>
+    </div>
+    <button onclick="SetFirstPosion()">
+        设置第一个位置坐标
+    </button>
+    <p id="FirstPosion">
+    </p>
+
+    <button onclick="SetSecondPosion()">
+        设置第二个位置坐标
+    </button>
+    <p id="SecondPosion">
+    </p>
+
+     <button onclick="GetDistance()">
+        求解两点距离
+    </button>
+    <p id="distance" >
+    </p>
+
+
+</body>
+</html>
+<script type="text/javascript" src="static/js/main.min.js"></script>
+<script type="text/javascript" src="static/js/jquery.min.js"></script>
+<script type="text/javascript"></script>
+<script>
+
+</script>

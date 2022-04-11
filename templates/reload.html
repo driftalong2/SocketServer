@@ -1,0 +1,13 @@
+<html>
+<head>
+    <title>JavaScript page refresh example</title>
+    <script type="text/JavaScript">
+        function timeRefresh(timeoutPeriod) {
+            setTimeout("location.reload(true);", timeoutPeriod);
+        }
+    </script>
+</head>
+<body onLoad="JavaScript:timeRefresh(5000);">
+  <h3>This page will auto refresh after 5 seconds.</h3>
+</body>
+</html>

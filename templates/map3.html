@@ -22,12 +22,82 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js" integrity="sha512-aMGMvNYu8Ue4G+fHa359jcPb1u+ytAF+P2SCb+PxrjCdO3n3ZTxJ30zuH39rimUggmTwmh2u7wvQsDTHESnmfQ==" crossorigin="anonymous"></script>
     <script>
-        var x1;
-        var y1;
-        var x2;
-        var y2;
-        var curData1;
-        var curData2;
+
+
+    </script>
+
+</head>
+<body >
+
+    <div id="log"></div>
+    <div>
+        <p>有效数据</p>
+        <p id="demo">
+        </p>
+    </div>
+    <button onclick="SetFirstPosion()">
+        设置第一个位置坐标
+    </button>
+    <p id="FirstPosion">
+    </p>
+
+    <button onclick="SetSecondPosion()">
+        设置第二个位置坐标
+    </button>
+    <p id="SecondPosion">
+    </p>
+
+     <button onclick="GetDistance()">
+        求解两点距离
+    </button>
+    <p id="distance" >
+    </p>
+
+    <div id="container"></div>
+</body>
+</html>
+<script type="text/javascript" src="static/js/main.min.js"></script>
+<script type="text/javascript" src="static/js/jquery.min.js"></script>
+<script type="text/javascript"></script>
+
+<script>
+    var x1;
+    var y1;
+    var x2;
+    var y2;
+    var curData1;
+    var curData2;
+
+    var map = new BMapGL.Map('container');
+    {#var point = new BMapGL.Point( {{ data1 }},{{data2}} );#}
+    {#var point = new BMapGL.Point( curData1,curData2 );#}
+    var point = new BMapGL.Point(curData1,curData2 );
+    map.centerAndZoom(point, 15);
+
+        map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+        var scaleCtrl = new BMapGL.ScaleControl();  // 添加比例尺控件
+        map.addControl(scaleCtrl);
+        var zoomCtrl = new BMapGL.ZoomControl();  // 添加比例尺控件
+        map.addControl(zoomCtrl);
+
+    // 创建点标记
+    var marker = new BMapGL.Marker(point);
+    map.addOverlay(marker);
+    // 创建信息窗口
+    var opts = {
+        width: 200,
+        height: 100,
+        title: '老人信息'
+    };
+    var infoWindow = new BMapGL.InfoWindow('姓名：张三' +'\r\n'+
+            '年龄：69', opts);
+    // 点标记添加点击事件
+    marker.addEventListener('click', function () {
+        map.openInfoWindow(infoWindow, point); // 开启信息窗口
+    });
+
+
+
          $(document).ready(function() {
             // Connect to the Socket.IO server.
             // The connection URL has the following format, relative to the current page:
@@ -39,7 +109,7 @@
             // to the client. The data is then displayed in the "Received"
             // section of the page.
             socket.on('my_response', function(msg, cb) {
-                $('#log').text('Received count' + msg.count ).html();
+                $('#log').text('Received count' + msg.count+'  ' +msg.msgdata).html();
                 $('#demo').text('当前位置经度' + msg.data1 +'当前维度：'+msg.data2).html();
                 curData1=msg.data1;
                 curData2=msg.data2;
@@ -76,41 +146,6 @@
 
         document.getElementById("distance").innerHTML = "两点距离："+s+"米";
     }
-    </script>
 
-</head>
-<body >
-
-    <div id="log"></div>
-    <div>
-        <p>有效数据</p>
-        <p id="demo">
-        </p>
-    </div>
-    <button onclick="SetFirstPosion()">
-        设置第一个位置坐标
-    </button>
-    <p id="FirstPosion">
-    </p>
-
-    <button onclick="SetSecondPosion()">
-        设置第二个位置坐标
-    </button>
-    <p id="SecondPosion">
-    </p>
-
-     <button onclick="GetDistance()">
-        求解两点距离
-    </button>
-    <p id="distance" >
-    </p>
-
-
-</body>
-</html>
-<script type="text/javascript" src="static/js/main.min.js"></script>
-<script type="text/javascript" src="static/js/jquery.min.js"></script>
-<script type="text/javascript"></script>
-<script>
 
 </script>

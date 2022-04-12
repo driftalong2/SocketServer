@@ -64,8 +64,10 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
                     cur_thread = threading.current_thread()
                     #                    response = bytes("{}: {}".format(cur_thread.name, data), 'ascii')
                     #                    response = bytes("{}: {}".format(cur_thread.name, data), 'ascii')
+                    global msgdata
                     msgdata = "Recv from "+str(self.ip)+":"+str(self.port)+", Data:"+str(data)+", "+str(time.ctime())
-                    if(data[17]=='A'):
+                    print(msgdata)
+                    if(len(data)>17 and data[17]=='A'):
                         global data1
                         global data2
                         # data1=data
@@ -79,9 +81,9 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
                         data2 = float(data2)
                         data2 = int(data2 / 100) + (data2 % 100) / 60
                         data2 = str(data2)
-                        # print("data1:", data1)
-                        # print("data2:", data2)
-                        # print(msgdata)
+                        print("data1:", data1)
+                        print("data2:", data2)
+                        print(msgdata)
 
 
                     with open(os.path.join(APP_STATIC_TXT, 'text.txt'),"a+") as f:
@@ -137,7 +139,7 @@ def background_thread():
         socketio.sleep(1)
         count += 1
         socketio.emit('my_response',
-                      {'data1': data1, 'data2':data2, 'count': count})
+                      {'data1': data1, 'data2':data2, 'count': count,'msgdata':msgdata})
 
 @socketio.event
 def connect():

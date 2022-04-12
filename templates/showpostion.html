@@ -46,7 +46,6 @@
 
 <script>
 
-39.986277
 var map = new BMapGL.Map('container');
 {#var point = new BMapGL.Point( {{ data1 }},{{data2}} );#}
 var point = new BMapGL.Point( 116.359309,39.986277 );
@@ -56,8 +55,7 @@ map.centerAndZoom(point, 15);
     map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
     var scaleCtrl = new BMapGL.ScaleControl();  // 添加比例尺控件
     map.addControl(scaleCtrl);
-    var zoomCtrl = new BMapGL.ZoomControl();  // 添加比例尺控件
-    map.addControl(zoomCtrl);
+
 
 // 创建点标记
 var marker = new BMapGL.Marker(point);

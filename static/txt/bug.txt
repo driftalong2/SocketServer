@@ -1,0 +1,165 @@
+D:\PythonProject\SocketServer\venv\Scripts\python.exe D:/PythonProject/SocketServer/run.py
+Server loop running in thread: Thread-1
+server.ServerStart =  True
+ * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+127.0.0.1:13101连接到服务器！
+127.0.0.1:13103连接到服务器！
+127.0.0.1:13109连接到服务器！
+127.0.0.1:13110连接到服务器！
+127.0.0.1:13144连接到服务器！
+127.0.0.1:1924连接到服务器！
+127.0.0.1:1925连接到服务器！
+127.0.0.1:1926连接到服务器！
+127.0.0.1:1927连接到服务器！
+Traceback (most recent call last):
+  File "D:/PythonProject/SocketServer/run.py", line 79, in handle
+    data = self.request.recv(1024).decode()
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0x8e in position 4: invalid start byte
+127.0.0.1:1926断开连接！
+Traceback (most recent call last):
+  File "D:/PythonProject/SocketServer/run.py", line 79, in handle
+    data = self.request.recv(1024).decode()
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0x8e in position 4: invalid start byte
+127.0.0.1:1927断开连接！
+127.0.0.1:3017连接到服务器！
+127.0.0.1:3018连接到服务器！
+127.0.0.1:3019连接到服务器！
+127.0.0.1:3019断开连接！
+Traceback (most recent call last):
+  File "D:/PythonProject/SocketServer/run.py", line 79, in handle
+    data = self.request.recv(1024).decode()
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xac in position 4: invalid start byte
+127.0.0.1:3025连接到服务器！
+Traceback (most recent call last):
+  File "D:/PythonProject/SocketServer/run.py", line 79, in handle
+    data = self.request.recv(1024).decode()
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xac in position 4: invalid start byte
+127.0.0.1:3025断开连接！
+127.0.0.1:13144断开连接！
+Traceback (most recent call last):
+  File "D:/PythonProject/SocketServer/run.py", line 102, in handle
+    data1=GPS0813(data1)
+  File "D:/PythonProject/SocketServer/run.py", line 31, in GPS0813
+    data = float(s)
+ValueError: could not convert string to float: ''
+127.0.0.1:5264连接到服务器！
+Traceback (most recent call last):
+  File "D:/PythonProject/SocketServer/run.py", line 102, in handle
+    data1=GPS0813(data1)
+  File "D:/PythonProject/SocketServer/run.py", line 31, in GPS0813
+    data = float(s)
+ValueError: could not convert string to float: ''
+127.0.0.1:5264断开连接！
+127.0.0.1:5531连接到服务器！
+127.0.0.1:5531断开连接！
+Traceback (most recent call last):
+  File "D:/PythonProject/SocketServer/run.py", line 102, in handle
+    data1=GPS0813(data1)
+  File "D:/PythonProject/SocketServer/run.py", line 31, in GPS0813
+    data = float(s)
+ValueError: could not convert string to float: ''
+127.0.0.1:5687连接到服务器！
+127.0.0.1:5687断开连接！
+Traceback (most recent call last):
+  File "D:/PythonProject/SocketServer/run.py", line 102, in handle
+    data1=GPS0813(data1)
+  File "D:/PythonProject/SocketServer/run.py", line 31, in GPS0813
+    data = float(s)
+ValueError: could not convert string to float: ''
+127.0.0.1:5864连接到服务器！
+127.0.0.1:5864断开连接！
+Traceback (most recent call last):
+  File "D:/PythonProject/SocketServer/run.py", line 102, in handle
+    data1=GPS0813(data1)
+  File "D:/PythonProject/SocketServer/run.py", line 31, in GPS0813
+    data = float(s)
+ValueError: could not convert string to float: ''
+127.0.0.1:6102连接到服务器！
+127.0.0.1:6102断开连接！
+Traceback (most recent call last):
+  File "D:/PythonProject/SocketServer/run.py", line 102, in handle
+    data1=GPS0813(data1)
+  File "D:/PythonProject/SocketServer/run.py", line 31, in GPS0813
+    data = float(s)
+ValueError: could not convert string to float: ''
+127.0.0.1:6273连接到服务器！
+Traceback (most recent call last):
+  File "D:/PythonProject/SocketServer/run.py", line 102, in handle
+    data1=GPS0813(data1)
+  File "D:/PythonProject/SocketServer/run.py", line 31, in GPS0813
+    data = float(s)
+ValueError: could not convert string to float: ''
+127.0.0.1:6273断开连接！
+127.0.0.1:6439连接到服务器！
+Traceback (most recent call last):
+  File "D:/PythonProject/SocketServer/run.py", line 102, in handle
+    data1=GPS0813(data1)
+  File "D:/PythonProject/SocketServer/run.py", line 31, in GPS0813
+    data = float(s)
+ValueError: could not convert string to float: ''
+127.0.0.1:6439断开连接！
+127.0.0.1:6625连接到服务器！
+127.0.0.1:6625断开连接！
+Traceback (most recent call last):
+  File "D:/PythonProject/SocketServer/run.py", line 102, in handle
+    data1=GPS0813(data1)
+  File "D:/PythonProject/SocketServer/run.py", line 31, in GPS0813
+    data = float(s)
+ValueError: could not convert string to float: ''
+127.0.0.1:6796连接到服务器！
+127.0.0.1:6796断开连接！
+Traceback (most recent call last):
+  File "D:/PythonProject/SocketServer/run.py", line 102, in handle
+    data1=GPS0813(data1)
+  File "D:/PythonProject/SocketServer/run.py", line 31, in GPS0813
+    data = float(s)
+ValueError: could not convert string to float: ''
+127.0.0.1:6968连接到服务器！
+127.0.0.1:6968断开连接！
+Traceback (most recent call last):
+  File "D:/PythonProject/SocketServer/run.py", line 102, in handle
+    data1=GPS0813(data1)
+  File "D:/PythonProject/SocketServer/run.py", line 31, in GPS0813
+    data = float(s)
+ValueError: could not convert string to float: ''
+127.0.0.1:7190连接到服务器！
+127.0.0.1:7190断开连接！
+Traceback (most recent call last):
+  File "D:/PythonProject/SocketServer/run.py", line 102, in handle
+    data1=GPS0813(data1)
+  File "D:/PythonProject/SocketServer/run.py", line 31, in GPS0813
+    data = float(s)
+ValueError: could not convert string to float: ''
+127.0.0.1:7444连接到服务器！
+Traceback (most recent call last):
+  File "D:/PythonProject/SocketServer/run.py", line 102, in handle
+    data1=GPS0813(data1)
+  File "D:/PythonProject/SocketServer/run.py", line 31, in GPS0813
+    data = float(s)
+ValueError: could not convert string to float: '11620.809GP'
+127.0.0.1:7444断开连接！
+127.0.0.1:7566连接到服务器！
+127.0.0.1:7566断开连接！
+Traceback (most recent call last):
+  File "D:/PythonProject/SocketServer/run.py", line 102, in handle
+    data1=GPS0813(data1)
+  File "D:/PythonProject/SocketServer/run.py", line 31, in GPS0813
+    data = float(s)
+ValueError: could not convert string to float: ''
+127.0.0.1:7735连接到服务器！
+Traceback (most recent call last):
+  File "D:/PythonProject/SocketServer/run.py", line 102, in handle
+    data1=GPS0813(data1)
+  File "D:/PythonProject/SocketServer/run.py", line 31, in GPS0813
+    data = float(s)
+ValueError: could not convert string to float: ''
+127.0.0.1:7735断开连接！
+127.0.0.1:7910连接到服务器！
+127.0.0.1:7910断开连接！
+Traceback (most recent call last):
+  File "D:/PythonProject/SocketServer/run.py", line 102, in handle
+    data1=GPS0813(data1)
+  File "D:/PythonProject/SocketServer/run.py", line 31, in GPS0813
+    data = float(s)
+ValueError: could not convert string to float: ''
+127.0.0.1:8079连接到服务器！

@@ -21,10 +21,7 @@
     <script src="//api.map.baidu.com/api?type=webgl&v=1.0&ak=U2W7f0h5u4CtOdqKqSIGkp3dpV0TMSqe"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js" integrity="sha512-aMGMvNYu8Ue4G+fHa359jcPb1u+ytAF+P2SCb+PxrjCdO3n3ZTxJ30zuH39rimUggmTwmh2u7wvQsDTHESnmfQ==" crossorigin="anonymous"></script>
-    <script>
-
-
-    </script>
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
 
 </head>
 <body >
@@ -47,9 +44,12 @@
     <p id="SecondPosion">
     </p>
 
-     <button onclick="GetDistance()">
-        求解两点距离
-    </button>
+
+    <p>输入两点的实际距离:
+        <input id="numb">
+        <button type="button" onclick="validateForm()">计算理论距离及精度</button>
+    </p>
+
     <p id="distance" >
     </p>
 
@@ -65,10 +65,10 @@
     var y1;
     var x2;
     var y2;
-    var curData1;
-    var curData2;
+    var curData1=116.35992484731833;
+    var curData2=39.98689598478704;
 
-    var map = new BMapGL.Map('container');
+      var map = new BMapGL.Map('container');
     {#var point = new BMapGL.Point( {{ data1 }},{{data2}} );#}
     {#var point = new BMapGL.Point( curData1,curData2 );#}
     var point = new BMapGL.Point(curData1,curData2 );
@@ -98,6 +98,7 @@
 
 
 
+
          $(document).ready(function() {
             // Connect to the Socket.IO server.
             // The connection URL has the following format, relative to the current page:
@@ -113,6 +114,14 @@
                 $('#demo').text('当前位置经度' + msg.data1 +'当前维度：'+msg.data2).html();
                 curData1=msg.data1;
                 curData2=msg.data2;
+                point = new BMapGL.Point(curData1,curData2 );
+                map.centerAndZoom(point, 15);
+                {#console.log("map ok");#}
+                map.clearOverlays();
+                {#console.log("clear mark");#}
+                var marker = new BMapGL.Marker(point);
+                map.addOverlay(marker);
+                {#console.log("mark ok");#}
 
                 if (cb)
                     cb();
@@ -130,22 +139,36 @@
             document.getElementById("SecondPosion").innerHTML="第二个点经度"+x2+"第二个点"+y2;
         }
 
-        function GetDistance(){
 
-        var radLat1=y1*(Math.PI/180);
-        var radLat2=y2*(Math.PI/180);
-        var radLong1=x1*(Math.PI/180);
-        var radLong2=x2*(Math.PI/180);
-        var a = radLat1 - radLat2;
-        var b = radLong1 - radLong2;
-        var  s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) +
-            Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));
-        {#console.log("s",s);#}
-        s = s *  6378137;
-        s=Math.round(s*10000)/10000;
+        function validateForm() {
+            console.log("计算")
+            var x = document.getElementById("numb").value;
+            if (isNaN(x)) {
+                text = "输入错误";
+            } else {
 
-        document.getElementById("distance").innerHTML = "两点距离："+s+"米";
-    }
+                console.log("x="+x)
+                var radLat1=y1*(Math.PI/180);
+                var radLat2=y2*(Math.PI/180);
+                var radLong1=x1*(Math.PI/180);
+                var radLong2=x2*(Math.PI/180);
+                var a = radLat1 - radLat2;
+                var b = radLong1 - radLong2;
+                var  s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) +
+                    Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));
+                console.log("s=",s);
+                s = s *  6378137;
+                s =Math.round(s*10000)/10000;
+                var accuracy=x-s;
+                console.log(s+"米")
+                text = "两点理论计算距离为："+s+"米，误差为"+accuracy+"米";
+            }
+
+            document.getElementById("distance").innerHTML =      text;
+
+
+
+        }
 
 
 </script>

@@ -6,6 +6,7 @@ import os
 from configure import APP_STATIC_TXT
 from threading import Lock
 import time
+import requests
 #import asyncio
 
 async_mode = None
@@ -24,6 +25,31 @@ client_socket = []
 msgdata = ""
 data1= 116.359309
 data2= 39.986277
+
+# 将原始的GPS0813协议转化为标准gps位置
+def GPS0813(s: str) -> str:
+    data = float(s)
+    data = int(data / 100) + (data % 100) / 60
+    return str(data)
+
+
+# 百度api，坐标转换服务是一类Web API接口服务；
+# 用于将常用的非百度坐标转换成百度地图中使用的坐标，
+# 并可将转化后的坐标在百度地图JavaScript API、Web服务API等产品中使用。
+def baiduGet(x:str,y:str):
+    url_head = 'https://api.map.baidu.com/geoconv/v1/?coords='
+    url_tail = '&from=1&to=5&ak=U2W7f0h5u4CtOdqKqSIGkp3dpV0TMSqe'
+    url = url_head + x + ',' + y + url_tail
+
+    dataGet = requests.get(url)
+    dataJson = dataGet.json()
+    dataResult = dataJson['result']
+
+    ans=list()
+    ans.append(dataResult[0]['x'])
+    ans.append(dataResult[0]['y'])
+    # print(ans)
+    return ans
 
 #从BaseRequestHandler继承，并重写handle方法
 class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
@@ -66,24 +92,23 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
                     #                    response = bytes("{}: {}".format(cur_thread.name, data), 'ascii')
                     global msgdata
                     msgdata = "Recv from "+str(self.ip)+":"+str(self.port)+", Data:"+str(data)+", "+str(time.ctime())
-                    print(msgdata)
+                    # print(msgdata)
                     if(len(data)>17 and data[17]=='A'):
                         global data1
                         global data2
                         # data1=data
                         # data1表示经度
                         data1 = data[32:43]
-                        data1=float(data1)
-                        data1=int(data1/100)+(data1%100)/60
-                        data1=str(data1)
-
+                        data1=GPS0813(data1)
                         data2 = data[19:29]
-                        data2 = float(data2)
-                        data2 = int(data2 / 100) + (data2 % 100) / 60
-                        data2 = str(data2)
-                        print("data1:", data1)
-                        print("data2:", data2)
-                        print(msgdata)
+                        data2 = GPS0813(data2)
+                        dataList=baiduGet(data1,data2)
+                        data1=dataList[0]
+                        data2=dataList[1]
+
+                        # print("data1:", data1)
+                        # print("data2:", data2)
+                        # print(msgdata)
 
 
                     with open(os.path.join(APP_STATIC_TXT, 'text.txt'),"a+") as f:
